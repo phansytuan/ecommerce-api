@@ -1,0 +1,151 @@
+# E-commerce API - Postman Collection Examples
+
+## Register a New User
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "email": "admin@example.com",
+  "password": "admin123",
+  "firstName": "Admin",
+  "lastName": "User",
+  "phoneNumber": "1234567890",
+  "address": "123 Admin Street"
+}
+
+###
+
+## Login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+###
+
+## Create Product (requires admin token)
+POST http://localhost:8080/api/products
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "name": "Gaming Laptop",
+  "description": "High-performance gaming laptop with RTX 4090",
+  "price": 2499.99,
+  "stockQuantity": 25,
+  "category": "Electronics",
+  "sku": "LAP-GAMING-001",
+  "imageUrl": "https://example.com/gaming-laptop.jpg"
+}
+
+###
+
+## Get All Products
+GET http://localhost:8080/api/products
+
+###
+
+## Get Active Products Only
+GET http://localhost:8080/api/products?active=true
+
+###
+
+## Get Product by ID
+GET http://localhost:8080/api/products/1
+
+###
+
+## Search Products
+GET http://localhost:8080/api/products/search?keyword=laptop
+
+###
+
+## Get Products by Category
+GET http://localhost:8080/api/products/category/Electronics
+
+###
+
+## Update Product (requires admin token)
+PUT http://localhost:8080/api/products/1
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "name": "Gaming Laptop Pro",
+  "description": "Updated high-performance gaming laptop",
+  "price": 2699.99,
+  "stockQuantity": 20,
+  "category": "Electronics",
+  "sku": "LAP-GAMING-001",
+  "imageUrl": "https://example.com/gaming-laptop-pro.jpg",
+  "isActive": true
+}
+
+###
+
+## Create Order (requires user token)
+POST http://localhost:8080/api/orders
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "productId": 1,
+      "quantity": 2
+    },
+    {
+      "productId": 2,
+      "quantity": 1
+    }
+  ],
+  "shippingAddress": "456 Customer Street, City, State 12345",
+  "paymentMethod": "Credit Card",
+  "notes": "Please call before delivery"
+}
+
+###
+
+## Get My Orders (requires user token)
+GET http://localhost:8080/api/orders/my-orders
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+###
+
+## Get Order by ID (requires user token)
+GET http://localhost:8080/api/orders/1
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+###
+
+## Get Order by Order Number (requires user token)
+GET http://localhost:8080/api/orders/number/ORD-20231209-ABCD1234
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+###
+
+## Get All Orders (requires admin token)
+GET http://localhost:8080/api/orders
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+###
+
+## Update Order Status (requires admin token)
+PATCH http://localhost:8080/api/orders/1/status?status=CONFIRMED
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+###
+
+## Cancel Order (requires user token)
+POST http://localhost:8080/api/orders/1/cancel
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+###
+
+## Delete Product (requires admin token)
+DELETE http://localhost:8080/api/products/1
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
